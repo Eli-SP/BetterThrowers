@@ -8,6 +8,14 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
 
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -22,13 +30,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <!-- <activity
+        <!--
+        <activity
             android:name=".SignIn"
             android:label="@string/title_activity_sign_in" >
-        </activity>-->
+        </activity>
+        -->
         <activity
             android:name=".signup"
             android:label="@string/title_activity_signup" >
+        </activity>
+        <activity
+            android:name=".user_home_screen"
+            android:label="@string/title_activity_user_home_screen" >
+        </activity>
+        <activity
+            android:name=".createGame"
+            android:label="@string/title_activity_create_game" >
+        </activity>
+        <activity
+            android:name=".viewPastEntries"
+            android:label="@string/title_activity_view_past_entries" >
+        </activity>
+        <activity
+            android:name=".gameScreen"
+            android:label="@string/title_activity_game_screen" >
         </activity>
     </application>
 

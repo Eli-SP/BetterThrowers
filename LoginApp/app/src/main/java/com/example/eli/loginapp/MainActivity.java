@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    //methods to handle click event of sign in button
+    //method to handle click event of sign in button
     public void signIn(View v){
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.activity_sign_in); // ?
@@ -65,6 +65,8 @@ public class MainActivity extends ActionBarActivity {
                 {
                     Toast.makeText(MainActivity.this, "Congrats: Login was Successful", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
+                    Intent intentHomeScreen = new Intent(getApplicationContext(), user_home_screen.class);
+                    startActivity(intentHomeScreen);
                 }
                 else
                 {
