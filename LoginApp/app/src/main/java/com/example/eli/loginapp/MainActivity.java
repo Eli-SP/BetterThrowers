@@ -66,6 +66,7 @@ public class MainActivity extends ActionBarActivity {
                     Toast.makeText(MainActivity.this, "Congrats: Login was Successful", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                     Intent intentHomeScreen = new Intent(getApplicationContext(), user_home_screen.class);
+                    loginDataBaseAdapter.close();
                     startActivity(intentHomeScreen);
                 }
                 else

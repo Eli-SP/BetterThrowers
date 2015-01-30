@@ -58,7 +58,11 @@
         android:text="Save Game To Database"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-
+    <Button
+        android:id="@+id/buttonScan"
+        android:text="Scan For Launcher"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/buttonFireLauncher"
         android:text="FIRE LAUNCHER!!"

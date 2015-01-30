@@ -8,23 +8,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.SimpleCursorAdapter;
 
-public class GameEntriesDataBaseAdapter {
+public class EntryDataBaseAdapter {
     static final String DATABASE_NAME = "login.db";
     static final int DATABASE_VERSION = 1;
     public static final int NAME_COLUMN = 1;
 
-    static final String DATABASE_CREATE = "create table "+"GAMES"+"( "+"ID"+" integer primary key autoincrement, "+ "GAMENAME text, PLAYERNAME integer, FOREIGN KEY(PLAYERNAME) REFERENCES LOGIN(ID)); ";
+    static final String DATABASE_CREATE = "create table "+"ENTRY"+"( "+"ID"+" integer primary key autoincrement, "+ "GAMEID integer, HITS integer, MISSES integer, FOREIGN KEY(GAMEID) REFERENCES GAMES(ID)); ";
     public SQLiteDatabase db;
     private final Context context;
     private DataBaseHelper dbHelper;
-    public GameEntriesDataBaseAdapter(Context _context)
+    public EntryDataBaseAdapter(Context _context)
     {
         context = _context;
         dbHelper = new DataBaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-    public GameEntriesDataBaseAdapter open() throws  SQLException
+    public EntryDataBaseAdapter open() throws  SQLException
     {
         db = dbHelper.getWritableDatabase();
         return this;
@@ -37,30 +36,45 @@ public class GameEntriesDataBaseAdapter {
     {
         return db;
     }
-    public void insertEntry(String gameName, int playerID)
+    public void insertEntry(int gameID, int hits, int misses)
     {
         ContentValues newValues = new ContentValues();
-        newValues.put("GAMENAME", gameName);
-        newValues.put("PLAYERNAME", playerID);
-        db.insert("GAMES", null, newValues);
+        newValues.put("GAMEID", gameID);
+        newValues.put("HITS", hits);
+        newValues.put("MISSES", misses);
+        db.insert("ENTRY", null, newValues);
     }
     public int deleteEntry(String gameName)
     {
         String where = "GAMENAME=?";
         return db.delete("GAMES", where, new String[]{gameName});
     }
-    public Cursor getAllEntries()
+    /*public int getHits()
     {
-
-        Cursor cursor = db.query("GAMES", new String[]{"ID","GAMENAME", "PLAYERNAME"}, null, null, null, null, null);
+        Cursor cursor = db.query("ENTRY", null, " HITS=?", new String[]{gameName}, null, null, null);
         if(cursor.getCount()<1)
         {
             cursor.close();
-            return null;
+            return -1;
         }
-
-        return cursor;
-    }
+        cursor.moveToFirst();
+        String playername = cursor.getString(cursor.getColumnIndex("PLAYERNAME"));
+        cursor.close();
+        return playername;
+    }*/
+    /*public int getHits()
+    {
+        Cursor cursor = db.query("ENTRY", null, " GAMENAME=?", new String[]{gameName}, null, null, null);
+        if(cursor.getCount()<1)
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToFirst();
+        String playername = cursor.getString(cursor.getColumnIndex("PLAYERNAME"));
+        cursor.close();
+        return playername;
+    }*/
     public void updateEntry(String gameName, int playerID)
     {
         ContentValues updatedValues = new ContentValues();
