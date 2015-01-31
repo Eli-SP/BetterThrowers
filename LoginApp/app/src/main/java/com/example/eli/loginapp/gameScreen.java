@@ -46,7 +46,7 @@ public class gameScreen extends ActionBarActivity {
         buttonHits = (Button)findViewById(R.id.buttonHit);
         buttonMisses = (Button)findViewById(R.id.buttonMiss);
         buttonFire = (Button)findViewById(R.id.buttonFireLauncher);
-        buttonScan = (Button)findViewById(R.id.buttonScan);
+
 
         textViewNumHits = (TextView)findViewById(R.id.textViewNumHits);
         textViewNumMisses = (TextView)findViewById(R.id.textViewNumMisses);
@@ -81,7 +81,8 @@ public class gameScreen extends ActionBarActivity {
                 Toast.makeText(gameScreen.this, "Save Successful", Toast.LENGTH_LONG).show();
             }
         });
-        buttonScan.setOnClickListener(new View.OnClickListener() {
+
+        buttonFire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(bluetoothAdapter == null || !bluetoothAdapter.isEnabled())
@@ -89,14 +90,6 @@ public class gameScreen extends ActionBarActivity {
                     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
                 }
-                DeviceScanActivity deviceScanActivity = new DeviceScanActivity();
-                deviceScanActivity.scanBLE(true);
-            }
-        });
-        buttonFire.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
     }

@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="21"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="18"
+        android:targetSdkVersion="18" />
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -41,7 +41,10 @@
             android:name=".SignIn"
             android:label="@string/title_activity_sign_in" >
         </activity>
+
+
         -->
+
         <activity
             android:name=".signup"
             android:label="@string/title_activity_signup" >
@@ -62,10 +65,22 @@
             android:name=".gameScreen"
             android:label="@string/title_activity_game_screen" >
         </activity>
+
         <activity
             android:name=".DeviceScanActivity"
             android:label="@string/title_activity_device_scan" >
         </activity>
+
+        <activity
+            android:name=".DeviceControlActivity"
+            android:label="@string/title_activity_device_control" >
+        </activity>
+
+        <service
+            android:name=".BluetoothLeService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

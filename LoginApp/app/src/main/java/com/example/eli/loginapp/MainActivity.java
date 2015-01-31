@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-    Button buttonSignIn, buttonSignUp;
+    Button buttonSignIn, buttonSignUp, buttonScan;
     LoginDataBaseAdapter loginDataBaseAdapter;
 
     @Override
@@ -29,13 +29,20 @@ public class MainActivity extends ActionBarActivity {
 
         buttonSignIn = (Button)findViewById(R.id.buttonSignIn);
         buttonSignUp = (Button)findViewById(R.id.buttonSignUp);
-
+        buttonScan = (Button)findViewById(R.id.buttonScan);
         //set the onclick listener to the signup button
         buttonSignUp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //create intent for signup activity and start it
                 Intent intentSignUp = new Intent(getApplicationContext(), signup.class);
                 startActivity(intentSignUp);
+            }
+        });
+        buttonScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DeviceScanActivity.class);
+                startActivity(intent);
             }
         });
     }
