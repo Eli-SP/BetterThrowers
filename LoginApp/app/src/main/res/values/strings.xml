@@ -22,11 +22,8 @@
     <string name="label_data">Data:</string>
     <string name="label_device_address">Device address:</string>
     <string name="label_state">State:</string>
-
     <string name="title_devices">BLE Device Scan</string>
     <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
-
-
 
     <!-- Menu items -->
     <string name="menu_connect">Connect</string>
@@ -34,4 +31,6 @@
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>
     <string name="intro_message">intro_message</string>
+    <string name="title_activity_list_view">ListViewActivity</string>
+
 </resources>

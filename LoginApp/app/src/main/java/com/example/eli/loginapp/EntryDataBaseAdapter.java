@@ -21,6 +21,7 @@ public class EntryDataBaseAdapter {
     public EntryDataBaseAdapter(Context _context)
     {
         context = _context;
+
         dbHelper = new DataBaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     public EntryDataBaseAdapter open() throws  SQLException
@@ -28,6 +29,7 @@ public class EntryDataBaseAdapter {
         db = dbHelper.getWritableDatabase();
         return this;
     }
+
     public void close()
     {
         db.close();
@@ -38,16 +40,21 @@ public class EntryDataBaseAdapter {
     }
     public void insertEntry(int gameID, int hits, int misses)
     {
+        db = dbHelper.getWritableDatabase();
         ContentValues newValues = new ContentValues();
         newValues.put("GAMEID", gameID);
         newValues.put("HITS", hits);
         newValues.put("MISSES", misses);
         db.insert("ENTRY", null, newValues);
+        this.close();
     }
     public int deleteEntry(String gameName)
     {
+        db = dbHelper.getWritableDatabase();
         String where = "GAMENAME=?";
-        return db.delete("GAMES", where, new String[]{gameName});
+        int x = db.delete("GAMES", where, new String[]{gameName});
+        db.close();
+        return x;
     }
     /*public int getHits()
     {
@@ -77,10 +84,12 @@ public class EntryDataBaseAdapter {
     }*/
     public void updateEntry(String gameName, int playerID)
     {
+        db = dbHelper.getWritableDatabase();
         ContentValues updatedValues = new ContentValues();
         updatedValues.put("GAMENAME", gameName);
         updatedValues.put("PLAYERNAME", playerID);
         String where = "GAMENAME = ?";
         db.update("GAMES", updatedValues, where, new String[]{gameName});
+        db.close();
     }
 }

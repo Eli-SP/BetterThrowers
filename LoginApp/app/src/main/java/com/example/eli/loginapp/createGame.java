@@ -7,21 +7,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class createGame extends ActionBarActivity {
-
+    GameEntriesDataBaseAdapter gamesDBAdapter;
     Button buttonCreateGame;
-
+    EditText gamename;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
-
+        gamename = (EditText)findViewById(R.id.editTextGameName);
         buttonCreateGame = (Button)findViewById(R.id.buttonCreateGame);
         buttonCreateGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                gamesDBAdapter = new GameEntriesDataBaseAdapter(getApplicationContext());
+                gamesDBAdapter = gamesDBAdapter.open();
+                gamesDBAdapter.insertEntry(gamename.getText().toString(), 1); // hardcoded
+                gamesDBAdapter.close();
+
+
                 Intent intentCreateGame = new Intent(getApplicationContext(), gameScreen.class);
                 startActivity(intentCreateGame);
             }

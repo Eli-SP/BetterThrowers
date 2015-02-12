@@ -18,13 +18,18 @@ public class DataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase _db)
     {
+        //create sql tables
         _db.execSQL(LoginDataBaseAdapter.DATABASE_CREATE);
+        _db.execSQL(EntryDataBaseAdapter.DATABASE_CREATE);
+        _db.execSQL(GameEntriesDataBaseAdapter.DATABASE_CREATE);
     }
     @Override
     public void onUpgrade(SQLiteDatabase _db, int _oldversion, int _newversion)
     {
         Log.w("TaskDBAdapter", "Upgrading from version " +_oldversion + " to " +_newversion + " which will destroy all old data");
-        _db.execSQL("DROP TABLE IF EXISTS " + "TEMPLATE");
+        _db.execSQL("DROP TABLE IF EXISTS " + "LOGIN");
+        _db.execSQL("DROP TABLE IF EXISTS " + "GAMES");
+        _db.execSQL("DROP TABLE IF EXISTS " + "ENTRY");
         onCreate(_db);
     }
 }

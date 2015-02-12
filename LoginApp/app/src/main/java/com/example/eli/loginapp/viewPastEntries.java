@@ -1,6 +1,8 @@
 package com.example.eli.loginapp;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.DropBoxManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,17 +19,12 @@ import org.w3c.dom.Text;
 public class viewPastEntries extends ActionBarActivity {
 
     Button buttonViewGames, buttonViewEntries;
-    GameEntriesDataBaseAdapter gamesDBAdapter;
-    EntryDataBaseAdapter entryDBAdapter;
-    TextView textView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_past_entries);
-        textView = new TextView(this);
-        textView.findViewById(R.id.TextViewGames);
-        gamesDBAdapter = new GameEntriesDataBaseAdapter(this);
-        entryDBAdapter = new EntryDataBaseAdapter(this);
 
         buttonViewEntries = (Button)findViewById(R.id.buttonViewEntries);
         buttonViewGames = (Button)findViewById(R.id.buttonViewGames);
@@ -40,22 +37,9 @@ public class viewPastEntries extends ActionBarActivity {
         buttonViewGames.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor cursor = gamesDBAdapter.getAllEntries();
-                if(cursor != null && cursor.moveToFirst())
-                {
-                    textView.setText("ID | GameName | PlayerID");
-                    /*while(!cursor.isLast())
-                    {
-                        textView.append(cursor.getString(1));
-                        textView.append(cursor.getString(2));
-                        textView.append(cursor.getString(3));
-                        cursor.moveToNext();
-                    }
-                    textView.append(cursor.getString(1));
-                    textView.append(cursor.getString(2));
-                    textView.append(cursor.getString(3));*/
-                    cursor.close();
-                }
+                Intent intent = new Intent(getApplicationContext(), ListViewActivity.class);
+                startActivity(intent);
+
 
             }
         });

@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 public class GameEntriesDataBaseAdapter {
     static final String DATABASE_NAME = "login.db";
@@ -51,14 +52,16 @@ public class GameEntriesDataBaseAdapter {
     }
     public Cursor getAllEntries()
     {
+        //Toast.makeText(context, "!@#!@#!@#!@#", Toast.LENGTH_LONG).show();
 
-        Cursor cursor = db.query("GAMES", new String[]{"ID","GAMENAME", "PLAYERNAME"}, null, null, null, null, null);
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM GAMES", null);
         if(cursor.getCount()<1)
         {
             cursor.close();
             return null;
         }
-
+        db.close();
         return cursor;
     }
     public void updateEntry(String gameName, int playerID)

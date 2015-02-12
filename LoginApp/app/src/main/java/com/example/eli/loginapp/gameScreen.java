@@ -21,7 +21,7 @@ public class gameScreen extends ActionBarActivity {
     Button buttonHits, buttonMisses, buttonSaveGame, buttonFire, buttonScan;
     TextView textViewNumHits, textViewNumMisses, textViewAccuracyPercentage;
 
-    GameEntriesDataBaseAdapter gamesDBAdapter;
+
     EntryDataBaseAdapter entryDBAdapter;
 
     private BluetoothAdapter bluetoothAdapter;
@@ -34,10 +34,6 @@ public class gameScreen extends ActionBarActivity {
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         bluetoothAdapter = bluetoothManager.getAdapter();
 
-        gamesDBAdapter = new GameEntriesDataBaseAdapter(this);
-        gamesDBAdapter = gamesDBAdapter.open();
-        gamesDBAdapter.insertEntry("test", 1); // hardcoded
-        gamesDBAdapter.close();
 
         entryDBAdapter = new EntryDataBaseAdapter(this);
         entryDBAdapter = entryDBAdapter.open();

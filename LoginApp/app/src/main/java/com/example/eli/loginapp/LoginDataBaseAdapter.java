@@ -22,11 +22,15 @@ public class LoginDataBaseAdapter {
     {
         context = _context;
         dbHelper = new DataBaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
     public LoginDataBaseAdapter open() throws  SQLException
     {
         db = dbHelper.getWritableDatabase();
         return this;
+    }
+    public void Upgrade() {
+        dbHelper.onUpgrade(db, 1, 2);
     }
     public void close()
     {
