@@ -82,6 +82,10 @@
             android:name=".ListViewActivity"
             android:label="@string/title_activity_list_view" >
         </activity>
+        <activity
+            android:name=".EntriesList"
+            android:label="@string/title_activity_entries_list" >
+        </activity>
     </application>
 
 </manifest>

@@ -56,6 +56,30 @@ public class EntryDataBaseAdapter {
         db.close();
         return x;
     }
+    public Cursor getEntry(int EntryNumber)
+    {
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM ENTRY WHERE GAMEID=?", new String[]{String.valueOf(EntryNumber)});
+        if(cursor.getCount()<1)
+        {
+            cursor.close();
+            return null;
+        }
+        db.close();
+        return cursor;
+    }
+    public Cursor getEntries()
+    {
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM ENTRY", null);
+        if(cursor.getCount()<1)
+        {
+            cursor.close();
+            return null;
+        }
+        db.close();
+        return cursor;
+    }
     /*public int getHits()
     {
         Cursor cursor = db.query("ENTRY", null, " HITS=?", new String[]{gameName}, null, null, null);

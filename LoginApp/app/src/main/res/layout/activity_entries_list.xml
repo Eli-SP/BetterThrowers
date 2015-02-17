@@ -4,29 +4,28 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-
-    tools:context="com.example.eli.loginapp.ListViewActivity">
-
+    tools:context="com.example.eli.loginapp.EntriesList">
 
     <TextView
-        android:id="@+id/view1"
+        android:id="@+id/EntryId"
         android:layout_width="wrap_content"
-
-        
         android:layout_height="wrap_content" />
+
     <TextView
-        android:id="@+id/view2"
-        android:layout_toEndOf="@+id/view1"
+        android:id="@+id/EntryGameID"
+        android:layout_toEndOf="@+id/EntryId"
         android:layout_width="wrap_content"
-
-
         android:layout_height="wrap_content" />
+
     <TextView
-        android:id="@+id/view3"
-        android:layout_toEndOf="@+id/view2"
+        android:id="@+id/EntryHits"
+        android:layout_toEndOf="@+id/EntryGameID"
         android:layout_width="wrap_content"
-
-
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:layout_toEndOf="@+id/EntryHits"
+        android:id="@+id/EntryMisses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

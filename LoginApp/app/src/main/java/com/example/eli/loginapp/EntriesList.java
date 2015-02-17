@@ -1,67 +1,70 @@
 package com.example.eli.loginapp;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class ListViewActivity extends ActionBarActivity {
+public class EntriesList extends ActionBarActivity {
     GameEntriesDataBaseAdapter gamesDBAdapter;
     EntryDataBaseAdapter entryDBAdapter;
-    TextView Id, GameName, PlayerID;
+    TextView Id, GameID, Misses, Hits;
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_view);
+        setContentView(R.layout.activity_entries_list);
+
+
         gamesDBAdapter = new GameEntriesDataBaseAdapter(getApplicationContext());
         entryDBAdapter = new EntryDataBaseAdapter(getApplicationContext());
-        Id = (TextView)findViewById(R.id.view1);
-        GameName = (TextView)findViewById(R.id.view2);
-        PlayerID = (TextView)findViewById(R.id.view3);
+        Id = (TextView)findViewById(R.id.EntryId);
+        GameID = (TextView)findViewById(R.id.EntryGameID);
+        Misses = (TextView)findViewById(R.id.EntryMisses);
+        Hits = (TextView)findViewById(R.id.EntryHits);
 
+        int i = 1;
 
-int i = 1;
-        Cursor cursor = gamesDBAdapter.getAllEntries();
+        Cursor cursor = entryDBAdapter.getEntries();
         if(cursor != null && cursor.moveToFirst())
         {
-            //textView.setText("ID | GameName | PlayerID");
             Id.setText("ID:   \n");
-            GameName.setText("Game Name:   \n");
-            PlayerID.setText("Player ID:   \n");
+            GameID.setText("GameID:   \n");
+            Hits.setText("Hits:   \n");
+            Misses.setText("Misses:   \n");
             while(!cursor.isLast())
             {
                 Id.append(String.valueOf(i++));
                 Id.append("\n");
-                GameName.append(cursor.getString(1));
-                GameName.append("\n");
-                PlayerID.append(cursor.getString(2));
-                PlayerID.append("\n");
+                GameID.append(cursor.getString(1));
+                GameID.append("\n");
+                Hits.append(cursor.getString(2));
+                Hits.append("\n");
+                Misses.append(cursor.getString(3));
+                Misses.append("\n");
                 cursor.moveToNext();
             }
             Id.append(String.valueOf(i));
             Id.append("\n");
-            GameName.append(cursor.getString(1));
-            PlayerID.append(cursor.getString(2));
+            GameID.append(cursor.getString(1));
+            GameID.append("\n");
+            Hits.append(cursor.getString(2));
+            Hits.append("\n");
+            Misses.append(cursor.getString(3));
+            Misses.append("\n");
             cursor.close();
-
-
         }
     }
+
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_list_view, menu);
+        getMenuInflater().inflate(R.menu.menu_entries_list, menu);
         return true;
     }
 
