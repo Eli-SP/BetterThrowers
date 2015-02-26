@@ -33,5 +33,6 @@
     <string name="intro_message">intro_message</string>
     <string name="title_activity_list_view">ListViewActivity</string>
     <string name="title_activity_entries_list">EntriesList</string>
+    <string name="title_activity_admin_home_screen">admin_home_screen</string>
 
 </resources>

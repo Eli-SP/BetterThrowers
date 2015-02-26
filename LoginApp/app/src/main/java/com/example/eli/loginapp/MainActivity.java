@@ -39,13 +39,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intentSignUp);
             }
         });
-        buttonScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DeviceScanActivity.class);
-                startActivity(intent);
-            }
-        });
+
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +70,12 @@ public class MainActivity extends ActionBarActivity {
                 //fetch password from database
                 String storedPassword = loginDataBaseAdapter.getSingleEntry(userName);
                 //check if password matches
-                if (password.equals(storedPassword))
+                if(userName == "Admin") {
+                    Intent intent = new Intent(getApplicationContext(), admin_home_screen.class);
+                    startActivity(intent);
+                    loginDataBaseAdapter.close();
+                }
+                else if (password.equals(storedPassword))
                 {
                     Toast.makeText(MainActivity.this, "Congrats: Login was Successful", Toast.LENGTH_LONG).show();
                     dialog.dismiss();

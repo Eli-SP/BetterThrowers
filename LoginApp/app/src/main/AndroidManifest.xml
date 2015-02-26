@@ -63,20 +63,10 @@
             android:name=".gameScreen"
             android:label="@string/title_activity_game_screen" >
         </activity>
-        <activity
-            android:name=".DeviceScanActivity"
-            android:label="@string/title_activity_device_scan" >
-        </activity>
-        <activity
-            android:name=".DeviceControlActivity"
-            android:label="@string/title_activity_device_control" >
-        </activity>
 
-        <service
-            android:name=".BluetoothLeService"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
+
+
+
 
         <activity
             android:name=".ListViewActivity"
@@ -85,6 +75,10 @@
         <activity
             android:name=".EntriesList"
             android:label="@string/title_activity_entries_list" >
+        </activity>
+        <activity
+            android:name=".admin_home_screen"
+            android:label="@string/title_activity_admin_home_screen" >
         </activity>
     </application>
 
