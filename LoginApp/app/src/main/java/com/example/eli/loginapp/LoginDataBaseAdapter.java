@@ -38,14 +38,17 @@ public class LoginDataBaseAdapter {
     }
     public SQLiteDatabase getDatabaseInstance()
     {
-        return db;
+      return db;
     }
     public void insertEntry(String userName, String password)
     {
+        db = dbHelper.getWritableDatabase();
+
         ContentValues newValues = new ContentValues();
         newValues.put("USERNAME", userName);
         newValues.put("PASSWORD", password);
         db.insert("LOGIN", null, newValues);
+        db.close();
     }
     public int deleteEntry(String userName)
     {
@@ -55,6 +58,7 @@ public class LoginDataBaseAdapter {
     }
     public String getSingleEntry(String userName)
     {
+        db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query("LOGIN", null, " USERNAME=?", new String[]{userName}, null, null, null);
         if(cursor.getCount()<1)
         {
@@ -64,6 +68,7 @@ public class LoginDataBaseAdapter {
         cursor.moveToFirst();
         String password = cursor.getString(cursor.getColumnIndex("PASSWORD"));
         cursor.close();
+        db.close();
         return password;
     }
     public void updateEntry(String userName, String password)

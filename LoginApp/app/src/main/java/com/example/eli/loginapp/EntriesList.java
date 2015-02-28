@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class EntriesList extends ActionBarActivity {
     GameEntriesDataBaseAdapter gamesDBAdapter;
     EntryDataBaseAdapter entryDBAdapter;
-    TextView Id, GameID, Misses, Hits;
+    TextView Id, Misses, Hits;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +22,7 @@ public class EntriesList extends ActionBarActivity {
         gamesDBAdapter = new GameEntriesDataBaseAdapter(getApplicationContext());
         entryDBAdapter = new EntryDataBaseAdapter(getApplicationContext());
         Id = (TextView)findViewById(R.id.EntryId);
-        GameID = (TextView)findViewById(R.id.EntryGameID);
+
         Misses = (TextView)findViewById(R.id.EntryMisses);
         Hits = (TextView)findViewById(R.id.EntryHits);
 
@@ -32,15 +32,14 @@ public class EntriesList extends ActionBarActivity {
         if(cursor != null && cursor.moveToFirst())
         {
             Id.setText("ID:   \n");
-            GameID.setText("GameID:   \n");
+
             Hits.setText("Hits:   \n");
             Misses.setText("Misses:   \n");
             while(!cursor.isLast())
             {
                 Id.append(String.valueOf(i++));
                 Id.append("\n");
-                GameID.append(cursor.getString(1));
-                GameID.append("\n");
+
                 Hits.append(cursor.getString(2));
                 Hits.append("\n");
                 Misses.append(cursor.getString(3));
@@ -49,8 +48,7 @@ public class EntriesList extends ActionBarActivity {
             }
             Id.append(String.valueOf(i));
             Id.append("\n");
-            GameID.append(cursor.getString(1));
-            GameID.append("\n");
+
             Hits.append(cursor.getString(2));
             Hits.append("\n");
             Misses.append(cursor.getString(3));

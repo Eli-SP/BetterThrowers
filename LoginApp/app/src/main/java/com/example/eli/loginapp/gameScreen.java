@@ -1,9 +1,12 @@
 package com.example.eli.loginapp;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.os.ParcelUuid;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,18 +16,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Set;
+
 
 public class gameScreen extends ActionBarActivity {
     private final static int REQUEST_ENABLE_BT = 1;
     int hits = 0, misses = 0;
     float percentage = 100;
-    Button buttonHits, buttonMisses, buttonSaveGame, buttonFire, buttonScan;
+    Button buttonHits, buttonMisses, buttonSaveGame, buttonFire;
     TextView textViewNumHits, textViewNumMisses, textViewAccuracyPercentage;
 
 
     EntryDataBaseAdapter entryDBAdapter;
 
     private BluetoothAdapter bluetoothAdapter;
+    private OutputStream outputStream;
+    private InputStream inStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +90,25 @@ public class gameScreen extends ActionBarActivity {
 
         buttonFire.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)  {
+                //check if bluetooth is enabled on the phone
                 if(bluetoothAdapter == null || !bluetoothAdapter.isEnabled())
                 {
                     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+
+                    try {
+                        func();
+                        String s = "1";
+                        outputStream.write(s.getBytes());
+                    }
+                    catch (Exception e)
+                    {
+                        //broke
+                    }
+
                 }
+
             }
         });
     }
@@ -93,7 +116,18 @@ public class gameScreen extends ActionBarActivity {
         float total = hits + misses;
         textViewAccuracyPercentage.setText(Float.toString((hits/total) * 100));
     }
-
+    private void func() throws IOException {
+        Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
+        if(bondedDevices.size() > 0){
+            BluetoothDevice[] devices = (BluetoothDevice[]) bondedDevices.toArray();
+            BluetoothDevice device = devices[0];
+            ParcelUuid[] uuids = device.getUuids();
+            BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuids[0].getUuid());
+            socket.connect();
+            outputStream = socket.getOutputStream();
+            inStream = socket.getInputStream();
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
