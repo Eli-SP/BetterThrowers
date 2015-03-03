@@ -6,12 +6,16 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.ParcelUuid;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +23,9 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 
 public class gameScreen extends ActionBarActivity {
@@ -28,14 +34,15 @@ public class gameScreen extends ActionBarActivity {
     float percentage = 100;
     Button buttonHits, buttonMisses, buttonSaveGame, buttonFire;
     TextView textViewNumHits, textViewNumMisses, textViewAccuracyPercentage;
-
+    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static String address = "00:00:00:00:00:00";
 
     EntryDataBaseAdapter entryDBAdapter;
 
     private BluetoothAdapter bluetoothAdapter;
     private OutputStream outputStream;
-    private InputStream inStream;
-
+    //private InputStream inStream;
+    private Set<BluetoothDevice> btdevices;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +50,7 @@ public class gameScreen extends ActionBarActivity {
 
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         bluetoothAdapter = bluetoothManager.getAdapter();
-
+        btdevices = bluetoothAdapter.getBondedDevices();
 
         entryDBAdapter = new EntryDataBaseAdapter(this);
         entryDBAdapter = entryDBAdapter.open();
@@ -88,6 +95,14 @@ public class gameScreen extends ActionBarActivity {
             }
         });
 
+        try{
+            func();
+        }
+        catch (Exception e)
+        {
+            //broke, maybe no devices available
+        }
+
         buttonFire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)  {
@@ -96,17 +111,18 @@ public class gameScreen extends ActionBarActivity {
                 {
                     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                }
 
-                    try {
-                        func();
-                        String s = "1";
-                        outputStream.write(s.getBytes());
-                    }
-                    catch (Exception e)
-                    {
-                        //broke
-                    }
+                try {
+                    //func();
+                    String s = "1";
+                    byte[] msgBuffer = s.getBytes();
 
+                    outputStream.write(msgBuffer);
+                }
+                catch (Exception e)
+                {
+                    //broke
                 }
 
             }
@@ -119,13 +135,14 @@ public class gameScreen extends ActionBarActivity {
     private void func() throws IOException {
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
         if(bondedDevices.size() > 0){
-            BluetoothDevice[] devices = (BluetoothDevice[]) bondedDevices.toArray();
-            BluetoothDevice device = devices[0];
-            ParcelUuid[] uuids = device.getUuids();
-            BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuids[0].getUuid());
+            //BluetoothDevice[] devices = (BluetoothDevice[]) bondedDevices.toArray();//
+            BluetoothDevice device = bondedDevices.iterator().next(); //one of these lines breaks
+            ParcelUuid [] uuids = device.getUuids();//device.getUuids();
+            BluetoothSocket socket = device.createRfcommSocketToServiceRecord(MY_UUID/*uuids[0].getUuid()*/);
             socket.connect();
             outputStream = socket.getOutputStream();
-            inStream = socket.getInputStream();
+
+
         }
     }
     @Override

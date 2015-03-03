@@ -70,10 +70,10 @@ public class MainActivity extends ActionBarActivity {
                 //fetch password from database
                 String storedPassword = loginDataBaseAdapter.getSingleEntry(userName);
                 //check if password matches
-                if(userName == "Admin") {
+                if(userName.equals("Admin") ) {
                     Intent intent = new Intent(getApplicationContext(), admin_home_screen.class);
-                    startActivity(intent);
                     loginDataBaseAdapter.close();
+                    startActivity(intent);
                 }
                 else if (password.equals(storedPassword))
                 {
@@ -89,6 +89,7 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         });
+
         dialog.show();
     }
 
