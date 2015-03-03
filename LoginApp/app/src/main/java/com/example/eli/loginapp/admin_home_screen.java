@@ -4,14 +4,53 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class admin_home_screen extends ActionBarActivity {
+private Button buttonAdminDeleteUser, buttonAdminDeleteEntry, buttonAdminDeleteGame;
+private EditText editTextDeleteUser, editTextDeleteGame, editTextDeleteEntry;
+private GameEntriesDataBaseAdapter gameDb;
+private EntryDataBaseAdapter entryDb;
+private LoginDataBaseAdapter loginDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home_screen);
+
+        buttonAdminDeleteEntry = (Button)findViewById(R.id.buttonAdminDeleteEntry);
+        buttonAdminDeleteGame = (Button)findViewById(R.id.buttonAdminDeleteGame);
+        buttonAdminDeleteUser = (Button)findViewById(R.id.buttonAdminDeleteUser);
+        editTextDeleteEntry = (EditText)findViewById(R.id.editTextDeleteEntry);
+        editTextDeleteGame = (EditText)findViewById(R.id.editTextDeleteGame);
+        editTextDeleteUser = (EditText)findViewById(R.id.editTextDeleteUser);
+
+        buttonAdminDeleteEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                entryDb.open().deleteEntry(editTextDeleteEntry.getText().toString());
+                entryDb.close();
+            }
+        });
+        buttonAdminDeleteGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String gametodelete = editTextDeleteGame.getText().toString();
+
+                gameDb.open().deleteEntry(gametodelete);
+                gameDb.close();
+            }
+        });
+        buttonAdminDeleteUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginDb.open().deleteEntry(editTextDeleteUser.getText().toString());
+            }
+        });
+
     }
 
 

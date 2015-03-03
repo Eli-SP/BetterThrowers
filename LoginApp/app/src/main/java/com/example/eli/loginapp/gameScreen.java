@@ -35,13 +35,12 @@ public class gameScreen extends ActionBarActivity {
     Button buttonHits, buttonMisses, buttonSaveGame, buttonFire;
     TextView textViewNumHits, textViewNumMisses, textViewAccuracyPercentage;
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    private static String address = "00:00:00:00:00:00";
 
     EntryDataBaseAdapter entryDBAdapter;
 
     private BluetoothAdapter bluetoothAdapter;
     private OutputStream outputStream;
-    //private InputStream inStream;
+
     private Set<BluetoothDevice> btdevices;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +88,7 @@ public class gameScreen extends ActionBarActivity {
         buttonSaveGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 entryDBAdapter.insertEntry(1, hits, misses); //1 is hardcoded, need to do a lookup
                 entryDBAdapter.close();
                 Toast.makeText(gameScreen.this, "Save Successful", Toast.LENGTH_LONG).show();
@@ -114,7 +114,6 @@ public class gameScreen extends ActionBarActivity {
                 }
 
                 try {
-                    //func();
                     String s = "1";
                     byte[] msgBuffer = s.getBytes();
 
@@ -135,14 +134,10 @@ public class gameScreen extends ActionBarActivity {
     private void func() throws IOException {
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
         if(bondedDevices.size() > 0){
-            //BluetoothDevice[] devices = (BluetoothDevice[]) bondedDevices.toArray();//
-            BluetoothDevice device = bondedDevices.iterator().next(); //one of these lines breaks
-            ParcelUuid [] uuids = device.getUuids();//device.getUuids();
-            BluetoothSocket socket = device.createRfcommSocketToServiceRecord(MY_UUID/*uuids[0].getUuid()*/);
+            BluetoothDevice device = bondedDevices.iterator().next();
+            BluetoothSocket socket = device.createRfcommSocketToServiceRecord(MY_UUID);
             socket.connect();
             outputStream = socket.getOutputStream();
-
-
         }
     }
     @Override

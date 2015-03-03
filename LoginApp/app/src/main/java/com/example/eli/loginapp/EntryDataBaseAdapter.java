@@ -48,11 +48,11 @@ public class EntryDataBaseAdapter {
         db.insert("ENTRY", null, newValues);
         this.close();
     }
-    public int deleteEntry(String gameName)
+    public int deleteEntry(String id)
     {
         db = dbHelper.getWritableDatabase();
-        String where = "GAMENAME=?";
-        int x = db.delete("GAMES", where, new String[]{gameName});
+        String where = "ID=?";
+        int x = db.delete("ENTRY", where, new String[]{id});
         db.close();
         return x;
     }
