@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-    Button buttonSignIn, buttonSignUp, buttonScan, buttonDelete;
+    Button buttonSignIn, buttonSignUp, buttonScan;
     LoginDataBaseAdapter loginDataBaseAdapter;
 
     @Override
@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
         buttonSignIn = (Button)findViewById(R.id.buttonSignIn);
         buttonSignUp = (Button)findViewById(R.id.buttonSignUp);
         buttonScan = (Button)findViewById(R.id.buttonScan);
-        buttonDelete = (Button)findViewById(R.id.buttonDeleteData);
+
         //set the onclick listener to the signup button
         buttonSignUp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -40,13 +40,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginDataBaseAdapter.Upgrade();
-                Toast.makeText(getApplicationContext(), "Delete Successful", Toast.LENGTH_LONG);
-            }
-        });
+
     }
 
     //method to handle click event of sign in button

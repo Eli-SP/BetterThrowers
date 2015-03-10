@@ -88,7 +88,7 @@ public class gameScreen extends ActionBarActivity {
         buttonSaveGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 entryDBAdapter.insertEntry(1, hits, misses); //1 is hardcoded, need to do a lookup
                 entryDBAdapter.close();
                 Toast.makeText(gameScreen.this, "Save Successful", Toast.LENGTH_LONG).show();

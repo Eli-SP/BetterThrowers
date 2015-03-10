@@ -18,7 +18,7 @@ import org.w3c.dom.Text;
 
 public class viewPastEntries extends ActionBarActivity {
 
-    Button buttonViewGames, buttonViewEntries, buttonViewSingleEntry;
+    Button buttonViewGames, buttonViewEntries;
 
 
     @Override
@@ -28,7 +28,7 @@ public class viewPastEntries extends ActionBarActivity {
 
         buttonViewEntries = (Button)findViewById(R.id.buttonViewEntries);
         buttonViewGames = (Button)findViewById(R.id.buttonViewGames);
-        buttonViewSingleEntry = (Button)findViewById(R.id.buttonViewEntry);
+
 
         buttonViewGames.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,12 +39,7 @@ public class viewPastEntries extends ActionBarActivity {
 
             }
         });
-        buttonViewSingleEntry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), )
-            }
-        });
+
         buttonViewEntries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

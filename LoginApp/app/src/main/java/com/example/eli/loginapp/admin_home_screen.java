@@ -7,11 +7,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class admin_home_screen extends ActionBarActivity {
-private Button buttonAdminDeleteUser, buttonAdminDeleteEntry, buttonAdminDeleteGame;
-private EditText editTextDeleteUser, editTextDeleteGame, editTextDeleteEntry;
+private Button buttonDelete;
+
 private GameEntriesDataBaseAdapter gameDb;
 private EntryDataBaseAdapter entryDb;
 private LoginDataBaseAdapter loginDb;
@@ -21,36 +22,19 @@ private LoginDataBaseAdapter loginDb;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home_screen);
 
-        buttonAdminDeleteEntry = (Button)findViewById(R.id.buttonAdminDeleteEntry);
-        buttonAdminDeleteGame = (Button)findViewById(R.id.buttonAdminDeleteGame);
-        buttonAdminDeleteUser = (Button)findViewById(R.id.buttonAdminDeleteUser);
-        editTextDeleteEntry = (EditText)findViewById(R.id.editTextDeleteEntry);
-        editTextDeleteGame = (EditText)findViewById(R.id.editTextDeleteGame);
-        editTextDeleteUser = (EditText)findViewById(R.id.editTextDeleteUser);
+        buttonDelete = (Button)findViewById(R.id.buttonDeleteData);
 
-        buttonAdminDeleteEntry.setOnClickListener(new View.OnClickListener() {
+
+        loginDb = new LoginDataBaseAdapter(this);
+        loginDb = loginDb.open();
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                entryDb.open().deleteEntry(editTextDeleteEntry.getText().toString());
-                entryDb.close();
-            }
-        });
-        buttonAdminDeleteGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String gametodelete = editTextDeleteGame.getText().toString();
+                loginDb.Upgrade();
+                Toast.makeText(getApplicationContext(), "Delete Successful", Toast.LENGTH_LONG).show();
 
-                gameDb.open().deleteEntry(gametodelete);
-                gameDb.close();
             }
         });
-        buttonAdminDeleteUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginDb.open().deleteEntry(editTextDeleteUser.getText().toString());
-            }
-        });
-
     }
 
 
